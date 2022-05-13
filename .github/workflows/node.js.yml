@@ -28,4 +28,4 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: mpm run build-prod --if-present
+    - run: npm run build-prod --if-present
