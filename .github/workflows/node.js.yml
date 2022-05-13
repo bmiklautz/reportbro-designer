@@ -7,13 +7,9 @@ on:
   create:
     tags:
       - v*
-  push:
-    branches:
-    - master
   
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -30,3 +26,9 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: npm run build-prod --if-present
+    - run: npm pack
+  
+    - name: Upload Release Assets
+      uses: alexellis/upload-assets@0.3.0
+      with:
+       asset_paths: '["reportbro-designer-*.tgz"]'
