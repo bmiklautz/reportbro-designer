@@ -47,5 +47,5 @@ jobs:
 
     - uses: JS-DevTools/npm-publish@v1
       with:
-        token: ${{ secrets.NPM_TOKEN }}
-        registry: https://gitlab.jobsta.at/api/v4/projects/28/packages/npm
+        token: ${{ secrets.GITHUB_TOKEN }}
+        registry: https://npm.pkg.github.com
