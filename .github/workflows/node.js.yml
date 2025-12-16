@@ -24,8 +24,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [24]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [24]
 
     steps:
     - uses: actions/checkout@v6
@@ -36,8 +36,7 @@ jobs:
         cache: 'npm'
         registry-url: 'https://registry.npmjs.org'
     # Ensure npm 11.5.1 or later is installed
-    - name: Update npm
-      run: npm install -g npm@latest
+    - run: npm install -g npm@latest
     - run: npm ci
     - run: npm run build-prod
     - run: npm pack
