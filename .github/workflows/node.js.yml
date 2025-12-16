@@ -24,13 +24,13 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20]
+        node-version: [24]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
@@ -41,13 +41,8 @@ jobs:
     - run: npm ci
     - run: npm run build-prod
     - run: npm pack
-  
-    - name: Upload Release Assets
-      uses: alexellis/upload-assets@0.4.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        asset_paths: '["reportbro-designer-*.tgz", "reportbro-designer-*.zip"]'
-
-    - name: Publish to npm
-      run: npm publish
+    - run: |
+     echo "Uploading to built to release with tag: ${{ github.event.release.tag_name }}"
+     gh release upload "${{ github.event.release.tag_name }}" reportbro-designer-*.tgz
+    #- name: Publish to npm
+    #  run: npm publish
