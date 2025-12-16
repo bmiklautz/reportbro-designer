@@ -7,7 +7,7 @@ on:
     types: [released]
   
 jobs:
-  build:
+  build_and_publish:
     runs-on: ubuntu-latest
     
     permissions:
@@ -22,17 +22,12 @@ jobs:
       # Required for OIDC
       id-token: write
 
-    strategy:
-      matrix:
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: [24]
-
     steps:
     - uses: actions/checkout@v6
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js
       uses: actions/setup-node@v6
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 24
         cache: 'npm'
         registry-url: 'https://registry.npmjs.org'
     # Ensure npm 11.5.1 or later is installed
