@@ -39,6 +39,8 @@ jobs:
           npm run build-prod
           npm pack
       - name: Upload
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo "Uploading to built to release with tag: ${{ github.event.release.tag_name }}"
           gh release upload "${{ github.event.release.tag_name }}" reportbro-designer-*.tgz
