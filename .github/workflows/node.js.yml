@@ -31,12 +31,16 @@ jobs:
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
       # Ensure npm 11.5.1 or later is installed
-      - run: npm install -g npm@latest
-      - run: npm ci
-      - run: npm run build-prod
-      - run: npm pack
-      - run: |
-        echo "Uploading to built to release with tag: ${{ github.event.release.tag_name }}"
-        gh release upload "${{ github.event.release.tag_name }}" reportbro-designer-*.tgz
+      - name: Udate to latest npm
+        run: npm install -g npm@latest
+      - name: Build and pack
+        run: |
+          npm ci
+          npm run build-prod
+          npm pack
+      - name: Upload
+        run: |
+          echo "Uploading to built to release with tag: ${{ github.event.release.tag_name }}"
+          gh release upload "${{ github.event.release.tag_name }}" reportbro-designer-*.tgz
     # - name: Publish to npm
     #   run: npm publish
